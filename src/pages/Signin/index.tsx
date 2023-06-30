@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,32 +12,38 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { postTheData } from '../../services/axios.service';
+import { sucessToast } from '../../services/toast.message.service';
+import { useNavigate } from 'react-router-dom';
 
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate=useNavigate()
+  const [data,setdata]=useState({
+    email:'',
+    password:''
+  })
+  const handleSubmit =async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+    try {
+      let Body={
+        email:data.email,
+        password:data.password
+      }
+      const response =await postTheData("user/login",Body);
+      console.log(response)
+      if(response.sucess){
+        sucessToast(response.message)
+        navigate('/dashboard')
+      }
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+    };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -67,6 +73,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e)=>setdata({...data,email:e.target.value})}
             />
             <TextField
               margin="normal"
@@ -77,6 +84,8 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e)=>setdata({...data,password:e.target.value})}
+
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -104,7 +113,6 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );

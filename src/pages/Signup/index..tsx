@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,32 +12,46 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { postTheData } from '../../services/axios.service';
+import { errorToast, sucessToast } from '../../services/toast.message.service';
+import { useNavigate } from 'react-router-dom';
 
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const navigate=useNavigate()
+    const [data,setdata]=useState({
+        email:"",
+        firstName:'',
+        lastName:'',
+        password:""
+    
+    })
+    
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    let Body={
+        email:data.email,
+        password:data.password,
+        name:`${data.firstName} ${data.lastName}`
+    }
+    const response=await postTheData('user/register',Body)
+    console.log(response)
+    if(response.sucess){
+        sucessToast(response.message)
+        navigate('/')
+    }else{
+        errorToast(response.message)
+    }
+
   };
+  
+
+
+
+
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -68,6 +82,7 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  onChange={(e)=>setdata({...data,firstName:e.target.value})}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -78,6 +93,7 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  onChange={(e)=>setdata({...data,lastName:e.target.value})}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -88,6 +104,7 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={(e)=>setdata({...data,email:e.target.value})}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -99,6 +116,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={(e)=>setdata({...data,password:e.target.value})}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -125,7 +143,6 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

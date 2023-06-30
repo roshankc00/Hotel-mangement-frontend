@@ -2,9 +2,6 @@ import { toast } from "react-toastify";
 import { tostifyMe } from "../interfaces/serviceInterfaces";
 
 
-
-
-
 const config: tostifyMe= {
   position: "top-right",
   autoClose: 5000,
@@ -28,7 +25,6 @@ export const sucessToast = (message: string) => {
 export const warningToast = (message: string) => {
   toast.warning(message, config);
 };
-
 
 
 export const errorToast = (message: string) => {
