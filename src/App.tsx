@@ -1,16 +1,18 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup/index.';
+import { Route,Routes } from 'react-router-dom';
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-    <Signin/>
-    <Signup/>
+  <Routes>
+  <Route path='/' element={<Signin/>}/>
+  <Route path='/signup' element={<Signup/>}/>
+  </Routes>
+  <ToastContainer />
     </>
    
   )
