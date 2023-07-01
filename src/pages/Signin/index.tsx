@@ -17,7 +17,9 @@ import { errorToast, sucessToast } from '../../services/toast.message.service';
 import { useNavigate } from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux'
 import authSlice, { logedin } from './auth.Slice';
+import SignInWithGoogle from '../../components/signin';
 const defaultTheme = createTheme();
+
 
 export default function SignIn() {
   const navigate=useNavigate()
@@ -106,6 +108,7 @@ export default function SignIn() {
             >
               Sign In
             </Button>
+            <SignInWithGoogle />
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
