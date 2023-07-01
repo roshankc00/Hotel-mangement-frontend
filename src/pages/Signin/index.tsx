@@ -13,14 +13,16 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { postTheData } from '../../services/axios.service';
-import { sucessToast } from '../../services/toast.message.service';
+import { errorToast, sucessToast } from '../../services/toast.message.service';
 import { useNavigate } from 'react-router-dom';
-
-
+import {useDispatch,useSelector} from 'react-redux'
+import authSlice, { logedin } from './auth.Slice';
 const defaultTheme = createTheme();
 
 export default function SignIn() {
   const navigate=useNavigate()
+  const dispatch=useDispatch()
+
   const [data,setdata]=useState({
     email:'',
     password:''
@@ -36,7 +38,12 @@ export default function SignIn() {
       console.log(response)
       if(response.sucess){
         sucessToast(response.message)
+        console.log(response.data)
+        dispatch(logedin(response.data))
+
         navigate('/dashboard')
+      }else{
+        errorToast(response.message)
       }
       
     } catch (error) {
