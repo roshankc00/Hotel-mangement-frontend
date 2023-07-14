@@ -14,6 +14,8 @@ import Room from './pages/Room';
 import Blog from './pages/Blog';
 import Food from './pages/Food';
 import Sidebar from './components/Sidebar';
+import Nav from './components/Navbar';
+import UserDashboard from './pages/userDashboard';
 function App() {
 
   return (
@@ -21,6 +23,7 @@ function App() {
   <Routes>
   <Route path='/' element={<Signin/>}/>
   <Route path='/signup' element={<Signup/>}/>
+  <Route path='/user/home' element={<UserDashboard/>}/>
   <Route path='/' element={<Sidebar/>}>
   <Route path='/dashboard' element={<Dashboard/>}/>
   <Route path='/addfoodform' element={<AddFood/>}/>
