@@ -12,9 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { postTheData } from '../../services/axios.service';
 import { errorToast, sucessToast } from '../../services/toast.message.service';
 import { useNavigate } from 'react-router-dom';
+import { addData } from '../../services/axios.service';
 
 
 const defaultTheme = createTheme();
@@ -36,7 +36,7 @@ export default function SignUp() {
         password:data.password,
         name:`${data.firstName} ${data.lastName}`
     }
-    const response=await postTheData('user/register',Body)
+    const response=await addData('user/register',Body)
     console.log(response)
     if(response.sucess){
         sucessToast(response.message)

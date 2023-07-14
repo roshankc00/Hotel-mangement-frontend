@@ -25,6 +25,9 @@ export const sucessToast = (message: string) => {
 export const warningToast = (message: string) => {
   toast.warning(message, config);
 };
+export const loadingToast = () => {
+  toast.loading("loading", config);
+};
 
 
 export const errorToast = (message: string) => {

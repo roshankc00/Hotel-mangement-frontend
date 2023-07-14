@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string, number, mixed } from "yup";
 
@@ -26,6 +27,8 @@ const handlesubmit = (values: any, { setSubmitting }: any) => {
 const AddRoom = () => {
   return (
     <div className="max-w-md mx-auto mb-2">
+    <Typography variant="h4" component='h2' className="my-4">Add Room</Typography>
+
       <Formik
         initialValues={initialValue}
         validationSchema={roomValidation}

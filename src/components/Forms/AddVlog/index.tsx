@@ -1,6 +1,7 @@
+import { Typography } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string, number, mixed } from "yup";
-const AddVlog = () => {
+const AddBlog = () => {
   // initial values
   const intialValue = {
     tag: "",
@@ -24,6 +25,8 @@ const AddVlog = () => {
 
   return (
     <div className="max-w-md mx-auto">
+    <Typography variant="h4" component='h2'>Add Blog</Typography>
+
       <Formik
         initialValues={intialValue}
         validationSchema={vlogValidation}
@@ -114,4 +117,4 @@ const AddVlog = () => {
   );
 };
 
-export default AddVlog;
+export default AddBlog;

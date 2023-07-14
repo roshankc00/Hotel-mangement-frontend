@@ -1,6 +1,7 @@
 import React from 'react'
 import { Formik,Field,ErrorMessage,Form } from 'formik'
 import { object,string,number, mixed } from 'yup'
+import { Typography } from '@mui/material'
 const AddFood = () => {
     const initialValue={
         name:"",
@@ -27,6 +28,8 @@ const AddFood = () => {
 
   return (
     <div className="max-w-md mx-auto mb-2">
+    <Typography variant="h4" component='h2'>Add Food</Typography>
+
       <Formik
         initialValues={initialValue}
         validationSchema={foodValidation}

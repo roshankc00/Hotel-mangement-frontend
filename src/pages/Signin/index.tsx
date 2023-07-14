@@ -12,12 +12,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { postTheData } from '../../services/axios.service';
 import { errorToast, sucessToast } from '../../services/toast.message.service';
 import { useNavigate } from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux'
 import authSlice, { logedin } from './auth.Slice';
 import SignInWithGoogle from '../../components/signin';
+import axios from 'axios';
+import { addData } from '../../services/axios.service';
 const defaultTheme = createTheme();
 
 
@@ -36,7 +37,8 @@ export default function SignIn() {
         email:data.email,
         password:data.password
       }
-      const response =await postTheData("user/login",Body);
+      console.log(Body)
+      const response=await addData('user/login',Body)
       console.log(response)
       if(response.sucess){
         sucessToast(response.message)
