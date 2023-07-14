@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import './App.css'
+import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup/index.';
 import { Route,Routes } from 'react-router-dom';
 import { ToastContainer} from 'react-toastify';
 import { Dashboard } from '@mui/icons-material';
+import AddVlog from './components/Forms/AddVlog';
+import AddTestinomial from './components/Forms/AddTestinomial';
 function App() {
 
   return (
